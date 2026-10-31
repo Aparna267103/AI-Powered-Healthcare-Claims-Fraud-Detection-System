@@ -78,7 +78,7 @@ The dashboard contains three main sections:
 - Monthly Claim Payments
 - Most Unusual Provider Scores
 
-![Power BI dashboard screenshot](screenshots/dashboard.png)
+![Power BI dashboard screenshot](dashboard.png)
 
 ## Project Workflow
 
