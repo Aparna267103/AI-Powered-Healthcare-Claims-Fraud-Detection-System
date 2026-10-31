@@ -134,4 +134,4 @@ This is an educational portfolio project using synthetic healthcare claims data.
 
 ## Author
 
-Created as a Data Analytics and Machine Learning portfolio project.
+Aparna V
