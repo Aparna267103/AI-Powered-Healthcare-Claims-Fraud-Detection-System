@@ -19,7 +19,11 @@ if not file_path.exists():
         "Check the filename and project folder."
     )
 
-df = pd.read_csv(file_path, low_memory=False)
+df = pd.read_csv(
+    file_path,
+    low_memory=False,
+    dtype={"PRVDR_NUM": "string"},
+)
 
 print("Dataset shape:", df.shape)
 print("\nAvailable columns:")
@@ -40,23 +44,20 @@ df["CLM_PMT_AMT"] = pd.to_numeric(
     df["CLM_PMT_AMT"], errors="coerce"
 )
 
-
-# Convert payment values to numeric
-df["CLM_PMT_AMT"] = pd.to_numeric(
-    df["CLM_PMT_AMT"], errors="coerce"
-)
-
 # Remove rows without provider or payment information
 claims = df.dropna(
     subset=["PRVDR_NUM", "CLM_PMT_AMT"]
 ).copy()
+
+if claims.empty:
+    raise ValueError("No valid claims available for analysis.")
 
 # Provider-level features
 provider_summary = (
     claims.groupby("PRVDR_NUM")
     .agg(
         total_claims=("CLM_ID", "nunique"),
-        total_billed=("CLM_PMT_AMT", "sum"),
+        total_claim_payments=("CLM_PMT_AMT", "sum"),
         avg_claim=("CLM_PMT_AMT", "mean"),
         max_claim=("CLM_PMT_AMT", "max"),
         std_claim=("CLM_PMT_AMT", "std"),
@@ -71,7 +72,7 @@ provider_summary["std_claim"] = (
 # Log transform reduces the effect of very large values
 features = [
     "total_claims",
-    "total_billed",
+    "total_claim_payments",
     "avg_claim",
     "max_claim",
     "std_claim",
@@ -137,7 +138,7 @@ print(
         [
             "PRVDR_NUM",
             "total_claims",
-            "total_billed",
+            "total_claim_payments",
             "avg_claim",
             "anomaly_score",
         ]
