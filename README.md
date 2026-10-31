@@ -22,7 +22,6 @@ The project combines Python, Scikit-learn, data analysis, and Power BI to build 
 - Pandas
 - NumPy
 - Scikit-learn
-- SQL (planned / additional analysis, if implemented)
 - Power BI
 - Visual Studio Code
 - Git and GitHub
@@ -50,8 +49,10 @@ The model identifies unusual provider-level patterns using features such as:
 ### Model Output
 
 - Anomaly label: -1 indicates an anomaly; 1 indicates normal.
-- Anomaly score: Used to rank unusual provider patterns.
+- Anomaly score: Lower scores indicate more unusual provider patterns. Flagged providers are sorted from the lowest score (most unusual) upward; negative scores indicate an anomaly with the current model configuration.
 - Review status: Providers are classified as Review or Normal based on the model output.
+- `total_claim_payments` is the sum of claim payment amounts (`CLM_PMT_AMT`), not billed charges.
+- The `contamination` parameter is set to `0.03` as a modeling assumption. It controls the expected proportion of outliers identified by the algorithm and does not represent the actual fraud rate.
 
 ## Power BI Dashboard
 
@@ -77,6 +78,8 @@ The dashboard contains three main sections:
 - Monthly Claim Payments
 - Most Unusual Provider Scores
 
+![Power BI dashboard screenshot](screenshots/dashboard.png)
+
 ## Project Workflow
 
 1. Download synthetic Medicare claims data.
@@ -94,30 +97,23 @@ The dashboard contains three main sections:
 Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/healthcare-claims-fraud-detection.git
+git clone https://github.com/Aparna267103/Healthcare-Claims-Fraud-Detection.git
+cd Healthcare-Claims-Fraud-Detection
 ```
 
-Install dependencies:
+The inpatient claims CSV must be in the repository root, alongside `provider_analysis.py`. The included sample CSV is already in this location.
 
 ```bash
 pip install -r requirements.txt
-```
-
-Place the downloaded inpatient claims CSV in the expected data folder or update the file path in the Python script.
-
-Run the Python script:
-
-```bash
 python provider_analysis.py
 ```
 
-The generated output files will be saved in the outputs folder.
+Provider results are saved in the `outputs` folder, including `provider_anomaly_results.csv` and `flagged_providers.csv`.
 
 ## Limitations
 
 - The project uses synthetic Medicare data.
-- Anomaly detection identifies unusual patterns, not confirmed fraud.
-- Flagged providers require further investigation.
+- Anomaly detection identifies unusual patterns, not confirmed fraud. Results are providers flagged for further review.
 - Model results depend on the selected features and contamination parameter.
 
 ## Future Enhancements
@@ -134,4 +130,4 @@ This is an educational portfolio project using synthetic healthcare claims data.
 
 ## Author
 
-Aparna V
+Created as a Data Analytics and Machine Learning portfolio project.
