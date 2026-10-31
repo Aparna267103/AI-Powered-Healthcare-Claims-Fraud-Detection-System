@@ -101,7 +101,7 @@ git clone https://github.com/Aparna267103/Healthcare-Claims-Fraud-Detection.git
 cd Healthcare-Claims-Fraud-Detection
 ```
 
-The inpatient claims CSV must be in the repository root, alongside `provider_analysis.py`. The included sample CSV is already in this location.
+The inpatient claims CSV must be in the repository root, alongside `provider_analysis.py`. Download the CMS DE-SynPUF Sample 1 inpatient claims CSV and place it in the repository root folder before running the script.
 
 ```bash
 pip install -r requirements.txt
