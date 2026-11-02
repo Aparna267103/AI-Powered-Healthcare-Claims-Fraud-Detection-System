@@ -56,29 +56,28 @@ The model identifies unusual provider-level patterns using features such as:
 
 ## Power BI Dashboard
 
-The dashboard contains three main sections:
+The Power BI report has four pages. Pages 1–3 focus on individual analysis areas, and page 4 brings the report visuals together in one view. The complete interactive report is included in [`PowerBi_Report.pbix`](PowerBi_Report.pbix); download it and open it with Power BI Desktop to explore all four pages and use the filters.
 
-### 1. Executive Risk Overview
-- Total Claims
-- Flagged Providers
-- Total Providers
-- Total Claim Payments
-- Top 10 Providers by Claim Count
-- Provider Review Status
+### Page 1 — Executive Risk Overview
+- Summary cards for total claims, flagged providers, total providers, total claim payments, and provider risk rate.
+- Top 10 providers by claim count.
+- Provider review status distribution.
 
-### 2. Provider Investigation
-- Provider-level claim details
-- Average and maximum claim payments
-- Anomaly scores
-- Review queue
-- Claim volume versus average payment analysis
+![Executive Risk Overview dashboard page](screenshots/Executive%20Risk%20Overview.png)
 
-### 3. Payment Patterns & Model Insights
-- Claim Payment Distribution
-- Monthly Claim Payments
-- Most Unusual Provider Scores
+### Page 2 — Provider Investigation
+- Provider claim details, including claim counts, payment amounts, anomaly scores, and review status.
+- Provider claim volume versus average payment analysis.
+- Filters and summary metrics to support provider-level investigation.
 
-![Power BI dashboard screenshot](dashboard.png)
+![Provider Investigation dashboard page](screenshots/Provider%20Investigation.png)
+
+### Page 3 — Payment Patterns & Model Insights
+- Claim payment distribution.
+- Monthly claim payment trend from 2008 to 2010.
+- Top 10 most unusual providers by anomaly score.
+
+![Payment Patterns & Model Insights dashboard page](screenshots/Payment%20Patterns%20%26%20Model%20Insights.png)
 
 ## Project Workflow
 
@@ -101,7 +100,7 @@ git clone https://github.com/Aparna267103/Healthcare-Claims-Fraud-Detection.git
 cd Healthcare-Claims-Fraud-Detection
 ```
 
-The inpatient claims CSV must be in the repository root, alongside `provider_analysis.py`. Download the CMS DE-SynPUF Sample 1 inpatient claims CSV and place it in the repository root folder before running the script.
+The inpatient claims CSV must be in the repository root, alongside `provider_analysis.py`. The included sample CSV is already in this location.
 
 ```bash
 pip install -r requirements.txt
