@@ -56,7 +56,7 @@ The model identifies unusual provider-level patterns using features such as:
 
 ## Power BI Dashboard
 
-The Power BI report has four pages. Pages 1–3 focus on individual analysis areas, and page 4 brings the report visuals together in one view. The complete interactive report is included in [`PowerBi_Report.pbix`](PowerBi_Report.pbix); download it and open it with Power BI Desktop to explore all four pages and use the filters.
+The Power BI report has three pages, each focused on a different area of claims analysis. The complete interactive report is included in [`PowerBi_Report.pbix`](PowerBi_Report.pbix); download it and open it with Power BI Desktop to explore the pages and use the filters.
 
 ### Page 1 — Executive Risk Overview
 - Summary cards for total claims, flagged providers, total providers, total claim payments, and provider risk rate.
