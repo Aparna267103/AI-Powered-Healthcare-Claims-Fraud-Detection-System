@@ -96,8 +96,8 @@ The Power BI report has three pages, each focused on a different area of claims 
 Clone the repository:
 
 ```bash
-git clone https://github.com/Aparna267103/Healthcare-Claims-Fraud-Detection.git
-cd Healthcare-Claims-Fraud-Detection
+git clone https://github.com/Aparna267103/AI-Powered-Healthcare-Claims-Fraud-Detection-System.git
+cd AI-Powered-Healthcare-Claims-Fraud-Detection-System
 ```
 
 The inpatient claims CSV must be in the repository root, alongside `provider_analysis.py`. The included sample CSV is already in this location.
