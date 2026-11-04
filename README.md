@@ -26,13 +26,18 @@ The project combines Python, Scikit-learn, data analysis, and Power BI to build 
 - Visual Studio Code
 - Git and GitHub
 
-## Dataset
+## Datasets
 
 **CMS DE-SynPUF – Medicare Claims Synthetic Public Use File**
 
 Source: https://www.cms.gov/data-research/statistics-trends-and-reports/medicare-claims-synthetic-public-use-files/cms-2008-2010-data-entrepreneurs-synthetic-public-use-file-de-synpuf/de10-sample-1
 
-The project uses synthetic Medicare inpatient claims data.
+The repository includes two different sample CSV files from this synthetic dataset:
+
+- **Beneficiary-level analysis (`main.py`):** Download the Medicare Beneficiary Summary File sample CSV, `DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv`, from the CMS source above and place it in the repository root.
+- **Provider-level analysis (`provider_analysis.py`):** Download the Medicare Inpatient Claims sample CSV, `DE1_0_2008_to_2010_Inpatient_Claims_Sample_1.csv`, from the CMS source above and place it in the repository root.
+
+The included sample CSV files are already in the repository root. If you replace either file, keep the exact filename shown above. These datasets have different rows and columns and are not interchangeable; each script requires its corresponding file.
 
 ## Machine Learning Approach
 
@@ -81,15 +86,10 @@ The Power BI report has three pages, each focused on a different area of claims 
 
 ## Project Workflow
 
-1. Download synthetic Medicare claims data.
-2. Load and preprocess the claims dataset using Python.
-3. Aggregate claims at provider level.
-4. Scale numerical features.
-5. Train the Isolation Forest model.
-6. Identify unusual providers.
-7. Export provider anomaly results as CSV files.
-8. Import the results into Power BI.
-9. Build an interactive analytics dashboard.
+The beneficiary-level and provider-level scripts are separate analyses:
+
+- `main.py` analyzes beneficiary-summary records and writes beneficiary-level results and charts to `outputs`.
+- `provider_analysis.py` analyzes inpatient claims aggregated by provider and writes provider-level results to `outputs`. The Power BI dashboard uses this script's output, including `provider_anomaly_results.csv` and `flagged_providers.csv`; the beneficiary-level output from `main.py` is not the dashboard's provider dataset.
 
 ## How to Run
 
@@ -100,14 +100,31 @@ git clone https://github.com/Aparna267103/AI-Powered-Healthcare-Claims-Fraud-Det
 cd AI-Powered-Healthcare-Claims-Fraud-Detection-System
 ```
 
-The inpatient claims CSV must be in the repository root, alongside `provider_analysis.py`. The included sample CSV is already in this location.
+Install dependencies once:
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Beneficiary-level analysis
+
+Ensure `DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv` is in the repository root, alongside `main.py`. The included sample CSV is already in this location.
+
+```bash
+python main.py
+```
+
+This writes beneficiary-level results and visualizations to `outputs`, including `beneficiary_anomaly_results.csv` and `anomalies_for_review.csv`.
+
+### Provider-level analysis and Power BI
+
+Ensure `DE1_0_2008_to_2010_Inpatient_Claims_Sample_1.csv` is in the repository root, alongside `provider_analysis.py`. The included sample CSV is already in this location.
+
+```bash
 python provider_analysis.py
 ```
 
-Provider results are saved in the `outputs` folder, including `provider_anomaly_results.csv` and `flagged_providers.csv`.
+Provider-level results are saved in `outputs`, including `provider_anomaly_results.csv` and `flagged_providers.csv`. These are the provider analysis outputs used by the Power BI dashboard.
 
 ## Limitations
 
