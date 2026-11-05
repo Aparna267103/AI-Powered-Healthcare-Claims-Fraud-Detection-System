@@ -45,7 +45,7 @@ The included sample CSV files are already in the repository root. If you replace
 
 The model identifies unusual provider-level patterns using features such as:
 
-- Total number of claims
+- Number of valid inpatient claim records
 - Total claim payments
 - Average claim payment
 - Maximum claim payment
@@ -58,6 +58,8 @@ The model identifies unusual provider-level patterns using features such as:
 - Review status: Providers are classified as Review or Normal based on the model output.
 - `total_claim_payments` is the sum of claim payment amounts (`CLM_PMT_AMT`), not billed charges.
 - The `contamination` parameter is set to `0.03` as a modeling assumption. It controls the expected proportion of outliers identified by the algorithm and does not represent the actual fraud rate.
+- The provider analysis retains repeated claim IDs because some repeated IDs have different provider or payment values, so the source does not identify a safe row to discard. Claim counts and payment statistics therefore use the same valid input rows; the script reports repeated IDs for review.
+- The dataset has no labeled fraud outcomes. Precision, recall, and fraud-detection performance have not been validated; anomaly scores identify records for investigation, not confirmed fraud.
 
 ## Power BI Dashboard
 
@@ -104,6 +106,12 @@ Install dependencies once:
 
 ```bash
 pip install -r requirements.txt
+```
+
+Run the provider-analysis regression test:
+
+```bash
+python -m unittest discover -s tests
 ```
 
 ### Beneficiary-level analysis

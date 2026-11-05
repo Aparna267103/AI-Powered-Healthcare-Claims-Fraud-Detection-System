@@ -44,19 +44,24 @@ df["CLM_PMT_AMT"] = pd.to_numeric(
     df["CLM_PMT_AMT"], errors="coerce"
 )
 
-# Remove rows without provider or payment information
+# A claim record needs an ID, provider, and payment to be analyzed.
 claims = df.dropna(
-    subset=["PRVDR_NUM", "CLM_PMT_AMT"]
+    subset=["CLM_ID", "PRVDR_NUM", "CLM_PMT_AMT"]
 ).copy()
 
 if claims.empty:
     raise ValueError("No valid claims available for analysis.")
 
+# Keep repeated IDs because some have different providers or payment values;
+# the source does not establish which row, if any, should be discarded.
+repeated_claims = claims[claims["CLM_ID"].duplicated(keep=False)]
+repeated_claim_id_count = repeated_claims["CLM_ID"].nunique()
+
 # Provider-level features
 provider_summary = (
     claims.groupby("PRVDR_NUM")
     .agg(
-        total_claims=("CLM_ID", "nunique"),
+        total_claims=("CLM_ID", "size"),
         total_claim_payments=("CLM_PMT_AMT", "sum"),
         avg_claim=("CLM_PMT_AMT", "mean"),
         max_claim=("CLM_PMT_AMT", "max"),
@@ -129,6 +134,11 @@ flagged.to_csv(
 )
 
 print("\n========== ANOMALY DETECTION ==========")
+print(
+    "Repeated claim IDs:",
+    repeated_claim_id_count,
+    f"({len(repeated_claims)} rows retained)",
+)
 print("Total providers:", len(provider_summary))
 print("Providers flagged for review:", len(flagged))
 
